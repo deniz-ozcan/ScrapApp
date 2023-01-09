@@ -1,0 +1,480 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Admin Panel {% endblock %}
+{% block css_files %} 
+<style >
+    .accordion-item {
+        background-color: #fff;
+        border: 0px solid rgba(0,0,0,.125); 
+    }
+    .accordion-button{
+        padding:1.07rem 1.25rem;
+    }
+    .hoverme:hover {background-color: #F94C66!important;}
+    .coverme {background-color: #00ff88!important;}
+    .coverme:hover {background-color: #8800ff!important;}
+    .colorbut:hover {background-color: #00ff88!important;}
+</style>
+{% endblock %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-fluid list-group-item bg-dark">
+    <h1 class="text-center p-3 bg-info rounded rounded-4">Admin Panel</h1>
+    <div class="row">
+        <div class="col-3" style="max-width:300px;">
+            <div class="card card-primary card-outline">
+                <div class="text-center card-header bg-info m-0">
+                    <h5 class="m-0 p-0">Shop Database Tables</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr class="hoverme">
+                                <td>Brands</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/brand/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hoverme">
+                                <td>Processors</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/processor/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hoverme">
+                                <td>Products</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/product/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hoverme">
+                                <td>Rams</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/ram/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hoverme">
+                                <td>Screens</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/screen/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hoverme">
+                                <td>Storages</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/storage/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hoverme">
+                                <td>Systems</td>
+                                <td>
+                                    <div class="btn-group float-right">
+                                        <a href="/admin/system/add/" class="btn btn-sm btn-outline-success btn-flat addlink">Ekle</a>
+                                        <button class="btn btn-sm btn-outline-info btn-flat changelink collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                            Değiştir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-9" style="min-width:1050px;">
+            <div class="accordion" id="listingAccordion">
+                <div class="accordion-item">
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable table-sm">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">BRAND<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">MODEL<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">PRICE<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">RATE<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">RAM<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">STORAGE<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">PROCESSORS<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">SYSTEM<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">SCREEN<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    {% for product in products  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ product.id }}</td>
+                                            <td scope="row">{{ product.name.name }}</td>
+                                            <td scope="row">{{ product.name.model }}</td>
+                                            <td scope="row">{{ product.price }}</td>
+                                            <td scope="row">{{ product.rate }}</td>
+                                            <td scope="row">{{ product.ram.type }}</td> 
+                                            <td scope="row">{{ product.storage.type }}</td> 
+                                            <td scope="row">{{ product.processor.type }}</td>
+                                            <td scope="row">{{ product.system.type }}</td>
+                                            <td scope="row">{{ product.screen.type }}</td>
+                                            <td >
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_products' product.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">NAME<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">MODEL<span aria-hidden="true"></span></button></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in brands  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ r.id }}</td>
+                                            <td>{{ r.name }}</td>
+                                            <td>{{ r.model }}</td>
+                                            <td class="d-flex justify-content-end">
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_brands' r.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">TYPE<span aria-hidden="true"></span></button></th>
+                                        <th ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in rams  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ r.id }}</td>
+                                            <td>{{ r.type }}</td>
+                                            <td class="d-flex justify-content-end">
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_rams' r.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">TYPE<span aria-hidden="true"></span></button></th>
+                                        <th ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in storages  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ r.id }}</td>
+                                            <td>{{ r.type }}</td>
+                                            <td class="d-flex justify-content-end">
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_storages' r.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">TYPE<span aria-hidden="true"></span></button></th>
+                                        <th ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in processors  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ r.id }}</td>
+                                            <td>{{ r.type }}</td>
+                                            <td class="d-flex justify-content-end">
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_processors' r.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">TYPE<span aria-hidden="true"></span></button></th>
+                                        <th ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in systems  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ r.id }}</td>
+                                            <td>{{ r.type }}</td>
+                                            <td class="d-flex justify-content-end">
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_systems' r.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#listingAccordion">
+                        <div class="accordion-body">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="coverme">
+                                        <th scope="col"><button class="btn colorbut">ID<span aria-hidden="true"></span></button></th>
+                                        <th scope="col"><button class="btn colorbut">TYPE<span aria-hidden="true"></span></button></th>
+                                        <th ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in screens  %}
+                                        <tr class="hoverme">
+                                            <td scope="row">{{ r.id }}</td>
+                                            <td>{{ r.type }}</td>
+                                            <td class="d-flex justify-content-end">
+                                                <a class="d-flex btn btn-success" href="{% url 'admin_screens' r.id %}" >
+                                                    <h6 class="text-center">EDİT</h6>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js_files %}
+<script>
+    'use strict';
+    class SortableTable {
+    constructor(tableNode) {
+        this.tableNode = tableNode;
+        this.columnHeaders = tableNode.querySelectorAll('thead th');
+        this.sortColumns = [];
+        for (var i = 0; i < this.columnHeaders.length; i++) {
+        var ch = this.columnHeaders[i];
+        var buttonNode = ch.querySelector('button');
+        if (buttonNode) {
+            this.sortColumns.push(i);
+            buttonNode.setAttribute('data-column-index', i);
+            buttonNode.addEventListener('click', this.handleClick.bind(this));
+        }
+        }
+        this.optionCheckbox = document.querySelector(
+        'input[type="checkbox"][value="show-unsorted-icon"]'
+        );
+        if (this.optionCheckbox) {
+        this.optionCheckbox.addEventListener(
+            'change',
+            this.handleOptionChange.bind(this)
+        );
+        if (this.optionCheckbox.checked) {
+            this.tableNode.classList.add('show-unsorted-icon');
+        }
+        }
+    }
+    
+    setColumnHeaderSort(columnIndex) {
+        if (typeof columnIndex === 'string') {
+        columnIndex = parseInt(columnIndex);
+        }
+        for (var i = 0; i < this.columnHeaders.length; i++) {
+        var ch = this.columnHeaders[i];
+        var buttonNode = ch.querySelector('button');
+        if (i === columnIndex) {
+            var value = ch.getAttribute('aria-sort');
+            if (value === 'descending') {
+            ch.setAttribute('aria-sort', 'ascending');
+            this.sortColumn(
+                columnIndex,
+                'ascending',
+                ch.classList.contains('num')
+            );
+            } else {
+            ch.setAttribute('aria-sort', 'descending');
+            this.sortColumn(
+                columnIndex,
+                'descending',
+                ch.classList.contains('num')
+            );
+            }
+        } else {
+            if (ch.hasAttribute('aria-sort') && buttonNode) {
+            ch.removeAttribute('aria-sort');
+            }
+        }
+        }
+    }
+    
+    sortColumn(columnIndex, sortValue, isNumber) {
+        function compareValues(a, b) {
+        if (sortValue === 'ascending') {
+            if (a.value === b.value) {
+            return 0;
+            } else {
+            if (isNumber) {
+                return a.value - b.value;
+            } else {
+                return a.value < b.value ? -1 : 1;
+            }
+            }
+        } else {
+            if (a.value === b.value) {
+            return 0;
+            } else {
+            if (isNumber) {
+                return b.value - a.value;
+            } else {
+                return a.value > b.value ? -1 : 1;
+            }
+            }
+        }
+        }
+    
+        if (typeof isNumber !== 'boolean') {
+        isNumber = false;
+        }
+    
+        var tbodyNode = this.tableNode.querySelector('tbody');
+        var rowNodes = [];
+        var dataCells = [];
+    
+        var rowNode = tbodyNode.firstElementChild;
+    
+        var index = 0;
+        while (rowNode) {
+        rowNodes.push(rowNode);
+        var rowCells = rowNode.querySelectorAll('th, td');
+        var dataCell = rowCells[columnIndex];
+    
+        var data = {};
+        data.index = index;
+        data.value = dataCell.textContent.toLowerCase().trim();
+        if (isNumber) {
+            data.value = parseFloat(data.value);
+        }
+        dataCells.push(data);
+        rowNode = rowNode.nextElementSibling;
+        index += 1;
+        }
+    
+        dataCells.sort(compareValues);
+        while (tbodyNode.firstChild) {
+        tbodyNode.removeChild(tbodyNode.lastChild);
+        }
+        for (var i = 0; i < dataCells.length; i += 1) {
+        tbodyNode.appendChild(rowNodes[dataCells[i].index]);
+        }
+    }
+    handleClick(event) {
+        var tgt = event.currentTarget;
+        this.setColumnHeaderSort(tgt.getAttribute('data-column-index'));
+    }
+    
+    handleOptionChange(event) {
+        var tgt = event.currentTarget;
+    
+        if (tgt.checked) {
+        this.tableNode.classList.add('show-unsorted-icon');
+        } else {
+        this.tableNode.classList.remove('show-unsorted-icon');
+        }
+    }
+    }
+    window.addEventListener('load', function () {
+    var sortableTables = document.querySelectorAll('table.sortable');
+    for (var i = 0; i < sortableTables.length; i++) {
+        new SortableTable(sortableTables[i]);
+    }
+    });
+</script>
+{% endblock %}

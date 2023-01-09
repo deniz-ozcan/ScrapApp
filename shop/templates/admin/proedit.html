@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% load scrap_extras %}
+{% block title %} ÜRÜN DETAYLARI | Shop App {% endblock %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-sm mt-3">
+    <div class="row justify-content-center">
+        <div class="card col-6 p-0">
+            <div class="card-header bg-info ">
+                <div class="card-title text-center pt-3">Ürün Ekle</div>
+            </div>
+            <div class="card-body">
+                <form class="form-group" method="POST">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger mb-3">
+                            {{error}}
+                        </div>
+                    {% elif success %}
+                        <div class="alert alert-success mb-3">
+                            {{success}}
+                        </div>
+                    {% endif %}
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_brand" id="product_brand">
+                        <option value="" selected="">Marka</option>
+                        {% for r in brands  %}
+                            <option value="{{ r.id }}">{{ r.name }} {{ r.model }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_ram" id="product_ram">
+                        <option value="" selected="">Ram</option>
+                        {% for r in rams  %}
+                            <option value="{{ r.id }}">{{ r.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_storage" id="product_storage">
+                        <option value="" selected="">Depolama</option>
+                        {% for r in storages  %}
+                            <option value="{{ r.id }}">{{ r.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_processor" id="product_processor">
+                        <option value="" selected="">İşlemci</option>
+                        {% for r in processors  %}
+                            <option value="{{ r.id }}">{{ r.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_system" id="product_system">
+                        <option value="" selected="">İşletim Sistemi</option>
+                        {% for r in systems  %}
+                            <option value="{{ r.id }}">{{ r.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_screen" id="product_screen">
+                        <option value="" selected="">Ekran Boyutu</option>
+                        {% for r in screens  %}
+                            <option value="{{ r.id }}">{{ r.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="form-group field-name">
+                        <div class="row">
+                            <label class="col-sm-2 text-left form-label" for="product_image">Resim</label>
+                            <div class="col-sm-10 field-name">
+                                <input type="text" name="product_image" class="form-control mb-3" maxlength="50" required="" id="product_image"/>
+                                <div class="help-block red"></div>
+                                <div class="help-block text-red"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group field-name">
+                        <div class="row">
+                            <label class="col-sm-2 text-left form-label" for="product_rate">Oran</label>
+                            <div class="col-sm-10 field-name">
+                                <input type="text" name="product_rate" class="form-control mb-3" maxlength="50" required="" id="product_rate"/>
+                                <div class="help-block red"></div>
+                                <div class="help-block text-red"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group field-name">
+                        <div class="row">
+                            <label class="col-sm-2 text-left form-label" for="product_price">Fiyat</label>
+                            <div class="col-sm-10 field-name">
+                                <input type="text" class="form-control mb-3" name="product_price"  maxlength="50" required="" id="product_price"/>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Kaydet" class="btn btn-outline-success form-control mb-3" name="save_product"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

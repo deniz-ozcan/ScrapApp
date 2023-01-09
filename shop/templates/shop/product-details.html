@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load scrap_extras %}
+{% block title %} ÜRÜN DETAYLARI | Shop App {% endblock %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-sm mt-3 col-7">
+    <div class="card mb-3">
+        <div class="row justify-content-center">
+            <div class="col-sm-5">
+                <img src="{{products.image}}" alt="" class="img-fluid rounded-start">
+            </div>
+            <div class="col-sm-7">
+                <div class="card-body">
+                    <div class="list-group list-group-flush fs-5">
+                        <li class="list-group-item" style="border:none;color:#333;">Üretici: {{ products.name.name }}</li>
+                        <li class="list-group-item" style="border:none;color:#666;">Model: {{ products.name.model }}</li>
+                        <li class="list-group-item" style="border:none;color:#666;">Ram: {{ products.ram.type }}  </li>
+                        <li class="list-group-item" style="border:none;color:#666;">Depolama: {{ products.storage.type }} SSD</li>
+                        <li class="list-group-item" style="border:none;color:#666;">İşlemci: {{ products.processor.type }}</li>
+                        <li class="list-group-item" style="border:none;color:#666;">Sistem: {{ products.system.type }}</li>
+                        <li class="list-group-item" style="border:none;color:#666;">Ekran: {{ products.screen.type }}</li>
+                        <div class="list-group list-group-flush list-group-horizontal mb-4">
+                            {% if products.rate %}
+                                <li class="list-group-item p-0 pt-2 fs-4 ms-5" style="font-size:1rem;border:none;">
+                                <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                                    {% with ''|center:products.rate  as range %}
+                                    {% for _ in range %}
+                                    <li>★</li>
+                                    {% endfor %}
+                                    {% endwith %}
+                                </ul>
+                                {% endif %}
+                            <li class="list-group-item me-5 fs-4" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">{{ products.price|floatformat }} TL</li>
+                        </div>
+                    </div>
+                    <div class="input-group justify-content-center">
+                        <button class="btn btn-primary" type="submit">Satın al</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% load scrap_extras %}
+{% block title %} Ürün | Shop App {% endblock %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-sm mt-3">
+    <div class="row justify-content-center">
+        <div class="card col-7 p-0">
+            <form class="form-group" method="POST">
+                {% csrf_token %}
+                {% if error %}
+                    <div class="alert alert-danger mb-3">
+                        {{error}}
+                    </div>
+                {% elif success %}
+                    <div class="alert alert-success mb-3">
+                        {{success}}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-8 ms-4 my-3">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header bg-info">
+                                    <div class="card-title text-center" style="color:white;">ÜRÜN DÜZENLE</div>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form-group" method="POST">
+                                        {% csrf_token %}
+                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_brand" id="product_brand">
+                                            {% for r in brands  %}
+                                                {% if product.name.name == r.name and product.name.model == r.model   %}
+                                                    <option value="{{ r.id }}" selected>{{ r.name }} {{ r.model }}</option>
+                                                {% else %}
+                                                    <option value="{{ r.id }}">{{ r.name }} {{ r.model }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_ram" id="product_ram">
+                                            {% for r in rams  %}
+                                                {% if product.ram.type  == r.type %}
+                                                    <option value="{{ r.id }}" selected>{{ r.type }}</option>
+                                                {% else %}
+                                                    <option value="{{ r.id }}">{{ r.type }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_storage" id="product_storage">
+                                            {% for r in storages  %}
+                                                {% if product.storage.type  == r.type %}
+                                                    <option value="{{ r.id }}" selected>{{ r.type }}</option>
+                                                {% else %}
+                                                    <option value="{{ r.id }}">{{ r.type }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_processor" id="product_processor">
+                                            {% for r in processors  %}
+                                                {% if product.processor.type  == r.type %}
+                                                    <option value="{{ r.id }}" selected>{{ r.type }}</option>
+                                                {% else %}
+                                                    <option value="{{ r.id }}">{{ r.type }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_system" id="product_system">
+                                            {% for r in systems  %}
+                                                {% if product.system.type == r.type %}
+                                                    <option value="{{ r.id }}" selected>{{ r.type }}</option>
+                                                {% else %}
+                                                <option value="{{ r.id }}">{{ r.type }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="product_screen" id="product_screen">
+                                            {% for r in screens  %}
+                                                {% if product.screen.type == r.type %}
+                                                    <option value="{{ r.id }}" selected>{{ r.type }}</option>
+                                                {% else %}
+                                                    <option value="{{ r.id }}">{{ r.type }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <div class="form-group field-name">
+                                            <div class="row">
+                                                <label class="col-sm-2 text-left form-label" for="product_image">Resim</label>
+                                                <div class="col-sm-10 field-name">
+                                                    <input type="text" name="product_image" value="{{product.image}}" class="form-control mb-3" maxlength="250" required="" id="product_image"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group field-name">
+                                            <div class="row">
+                                                <label class="col-sm-2 text-left form-label" for="product_rate">Oran</label>
+                                                <div class="col-sm-10 field-name">
+                                                    <input type="text" name="product_rate" value="{{product.rate|floatformat}}" class="form-control mb-3" maxlength="2" required="" id="product_rate"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group field-name">
+                                            <div class="row">
+                                                <label class="col-sm-2 text-left form-label" for="product_price">Fiyat</label>
+                                                <div class="col-sm-10 field-name">
+                                                    <input type="text" class="form-control mb-3" value="{{product.price|floatformat}}" name="product_price"  maxlength="6" required="" id="product_price"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 my-auto">
+                            <div class="card card-primary card-outline">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <input type="submit" value="Kaydet" class="btn btn-outline-success form-control mb-3" name="_save" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Sil" class="btn btn-outline-danger form-control mb-3" name="_delete" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {% if productdeleted %}
+                <div class="alert alert-danger mx-auto mt-3">
+                    {{ product.name.name }} {{ product.name.model }} {{ product.ram.type }} RAM  {{ product.storage.type }} SSD {{ product.processor.type }} SSD {{ product.system.type }} {{ product.screen.type }} | Fiyat: {{ product.price }}.00 TL Oran: {{ product.rate }}
+                    Bu ürün silinecektir. Emin misiniz?
+                </div>
+                <ul class="list-group list-group-flush">
+                    <form class="d-flex list-group-item justify-content-center" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Evet, Eminim!" class="btn btn-outline-danger form-control mb-3 me-4 ms-4" name="_deleteconfirmed"/>
+                        <input type="submit" value="Hayır, Kalsın!" class="btn btn-outline-success form-control mb-3 ms-4 me-4" name="_deletedenied"/>
+                    </form>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

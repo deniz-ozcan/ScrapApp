@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% load scrap_extras %}
+{% block title %} ÜRÜN DETAYLARI | Scrap App {% endblock %}
+{% block css_files %} 
+<style>
+    .colorme{transition: all 0.4s ease-out;}
+    .colorme:hover{transform: translate(10px,-10PX);}
+</style>
+{% endblock css_files %}
+{% block content %}
+{% include 'scrap/partials/_navbar1.html' %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="d-flex justify-content-end mb-3">
+            <div class="dropdown rounded-4">
+                <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Sırala</a>
+                <ul class="dropdown-menu">
+                    {% with params=request.GET.urlencode %}
+                    <li><a class="dropdown-item" href="{% my_url '-price' 'order' params %}">En düşük fiyat</a></li>
+                    <li><a class="dropdown-item" href="{% my_url 'price' 'order' params %}">En Yüksek fiyat</a></li>
+                    <li><a class="dropdown-item" href="{% my_url '-rate' 'order' params %}">En Düşük Oran</a></li>
+                    <li><a class="dropdown-item" href="{% my_url 'rate' 'order' params %}">En Yüksek Oran</a></li>
+                    {% endwith %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-3">
+                <img src="{{products.image}}" alt="" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <p class="card-title fs-6">
+                        {% if products.name.name  %} {{ products.name.name }} {% endif %}
+                        {% if products.name.model  %} {{ products.name.model }} {% endif %}
+                        {% if products.ram.type %} {{ products.ram.type }} RAM {% endif %}
+                        {% if products.storage.type %} {{ products.storage.type }} SSD{% endif %}
+                        {% if products.processor.type %} {{ products.processor.type }} {% endif %}
+                        {% if products.system.type  %} {{ products.system.type }} {% endif %}
+                        {% if products.screen.type  %} {{ products.screen.type }} {% endif %}
+                    </p>
+                </div>
+                <div class="list-group list-group-flush list-group-horizontal">
+                {% for site in filtered_products.qs %}
+                    <li class="list-group-item" style="border:none;">
+                        <ul class="list-group colorme">
+                            {% if site.sitename == "hepsiburada" %}
+                                <a href="{{site.link}}" class="list-group-item">
+                                    <img src="{% static 'img/hepsi.svg' %}" alt="" style="width:5rem;"> 
+                            {% elif site.sitename == "trendyol" %}
+                                <a href="{{site.link}}" class="list-group-item">
+                                    <img src="{% static 'img/trendyol.svg' %}" alt="" style="width:5rem;"> 
+                            {% elif site.sitename == "n11" %}
+                                <a href="{{site.link}}" class="list-group-item">
+                                    <img src="{% static 'img/n11.svg' %}" alt="" style="width:4rem;"> 
+                            {% elif site.sitename == "vatanbilgisayar" %}
+                                <a href="{{site.link}}" class="list-group-item">
+                                    <img src="{% static 'img/vatan.svg' %}" alt="" style="width:5rem;"> 
+                            {% endif %}
+                                {% if site.rate|floatformat%}
+                                <li class="list-group-item p-0 pt-2" style="font-size:1rem;border:none;">
+                                    <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                                    {% with ''|center:site.rate  as range %}
+                                    {% for _ in range %}
+                                        <li>★</li>
+                                    {% endfor %}
+                                    {% endwith %}
+                                    </ul>
+                                {% endif %}
+                                    {% if site.rate|floatformat == '0' %}
+                                        <ul class="ms-3 list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FF0000">
+                                            <li>No Star</li>
+                                        </ul>
+                                    {% endif %}
+                                <li class="list-group-item ms-auto" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">{{ site.price|floatformat }} TL</li>
+                                </a>
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

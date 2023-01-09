@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title%} Login {% endblock %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-sm mt-5" >
+    <div class="row justify-content-center">
+        <div class="card col-6 p-0">
+            <div class="card-header">
+                <div class="card-title text-center pt-3">Login</div>
+            </div>
+            <div class="card-body">
+                <form class="form-group" method="POST">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger mb-3">
+                            {{error}}
+                        </div>
+                    {% elif success %}
+                        <div class="alert alert-success mb-3">
+                            {{success}}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-10">
+                                <label for="username" class="form-label text-center">Kullanıcı Adı</label>
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                            <div class="col-sm-10">
+                                <label for="password" class="form-label text-center mt-3">Parola</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                            <input type="submit" value="Login" class="btn btn-primary mt-3" style="max-width:150px;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

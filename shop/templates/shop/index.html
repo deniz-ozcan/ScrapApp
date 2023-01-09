@@ -1,0 +1,94 @@
+{% extends "base.html" %} 
+{% load static %}
+{% load shop_extras %}
+{% block title %} ANASAYFA  | Shop App{% endblock%} 
+{% block css_files %}
+<style src="{% static 'css/style.css' %}"></style>
+{% endblock css_files %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-3" style="max-width:300px;">
+      {% include 'partials/_categories.html' %}
+    </div>
+    <div class="col-9" style="min-width:1050px;">
+      <div class="row">
+        <div class="d-flex justify-content-end mb-3">
+            <div class="dropdown rounded-4">
+                <a class="btn btn-md dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#20c997;color:white;--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Sırala</a>
+                <ul class="dropdown-menu">
+                    {% with params=request.GET.urlencode %}
+                    <li><a class="dropdown-item" href="{% my_url '-price' 'order' params %}">En Yüksek fiyat</a></li>
+                    <li><a class="dropdown-item" href="{% my_url 'price' 'order' params %}">En Düşük fiyat</a></li>
+                    <li><a class="dropdown-item" href="{% my_url '-rate' 'order' params %}">En Yüksek Oran</a></li>
+                    <li><a class="dropdown-item" href="{% my_url 'rate' 'order' params %}">En Düşük Oran</a></li>
+                    {% endwith %}
+                </ul>
+            </div>
+        </div>
+    </div>
+      <div class="card-group wrapper ">
+        {% for listing in products %}
+          <a href="{% url 'shop/product-details' listing.slug %}" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+            {% if listing.is_updated %}
+              <div class="card mb-3 me-3 border-info bg-dark popupcard">
+            {% else %}
+              <div class="card mb-3 me-3 border-info popupcard">
+            {% endif %}
+                  <img src="{{listing.image}}" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                <div class="card-body">
+                  <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">{{ listing.name.name }}</p>
+                  <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;">{{ listing.name.model }} {{ listing.ram.type }} RAM {{ listing.storage.type }} SSD {{ listing.processor.type }} {{ listing.system.type }} {{ listing.screen.type }}</p>
+                    <div class="list-group list-group-horizontal">
+                      {% if listing.rate|floatformat %}
+                        <li class="list-group-item p-0 pt-2 itemsing1" style="font-size:1rem;border:none;">
+                          <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                            {% with ''|center:listing.rate as range %}
+                            {% for _ in range %}
+                              <li>★</li>
+                            {% endfor %}
+                            {% endwith %}
+                          </ul>
+                        {% endif %}
+                      <li class="list-group-item ms-auto itemsing2" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">{{ listing.price|floatformat }} TL</li>
+                    </div>
+                </div>
+              </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <nav aria-label="Page navigation" class="mt-6">
+    <ul class="pagination justify-content-center">
+      {% if products.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo İlk sayfa</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url products.previous_page_number 'page' request.GET.urlencode %}">Önceki</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url pnum 'page' request.GET.urlencode %}">{{ pnum }}</a>
+      </li>
+      {% endif %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="{% my_url nums 'page' request.GET.urlencode %}">{{ nums }}</a>
+      </li>
+      {% if products.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url nnum 'page' request.GET.urlencode %}">{{ nnum }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url products.next_page_number 'page' request.GET.urlencode %}">Sonraki</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url products.paginator.num_pages 'page' request.GET.urlencode %}">Son sayfa &raquo</a> 
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+</div>
+{% endblock %}

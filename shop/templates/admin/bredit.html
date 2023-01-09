@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% load scrap_extras %}
+{% block title %} ÜRÜN DETAYLARI | Shop App {% endblock %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+<div class="container-sm mt-3">
+    <div class="row justify-content-center">
+        <div class="card col-6 p-0">
+            <div class="card-header bg-info">
+                <div class="card-title text-center pt-3">MARKA Ekle</div>
+            </div>
+            <div class="card-body">
+                <form class="form-group" method="POST">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger mb-3">
+                            {{error}}
+                        </div>
+                    {% elif success %}
+                        <div class="alert alert-success mb-3">
+                            {{success}}
+                        </div>
+                    {% endif %}
+                    <div class="form-group field-name">
+                        <div class="row">
+                            <label class="col-sm-2 text-left form-label" for="brand_name">Name</label>
+                            <div class="col-sm-10 field-name">
+                                <input type="text" name="brand_name" class="form-control mb-3" maxlength="50" required="" id="brand_name"/>
+                                <div class="help-block red"></div>
+                                <div class="help-block text-red"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group field-model">
+                        <div class="row">
+                            <label class="col-sm-2 text-left form-label" for="brand_model">Model</label>
+                            <div class="col-sm-10 field-model">
+                                <input type="text" name="brand_model" class="form-control mb-3" maxlength="50" required="" id="brand_model"/>
+                                <div class="help-block red"></div>
+                                <div class="help-block text-red"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Kaydet" class="btn btn-outline-success form-control mb-3" name="save_brand"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

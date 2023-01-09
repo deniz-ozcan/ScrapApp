@@ -1,0 +1,17 @@
+<nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-md">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'scrap' %}">Scrap App</a>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'scrap/products' %}">ÜRÜNLER</a>
+            </li>
+        </ul>
+        <div class="input-group justify-content-end">
+            <form class="d-flex" role="search" method=POST action="{% url 'scrap/search-products' %}" >
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search" name="searched">
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>

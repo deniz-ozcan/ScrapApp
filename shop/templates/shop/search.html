@@ -1,0 +1,63 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+{% include 'shop/partials/_navbar2.html' %}
+{% if searched %}
+    <h1 class="alert alert-success text-center">
+        Aradığınız Kelime: {{ searched }}
+    </h1>
+    {% if products|length > 0 %}
+    <div class="container" style='Display: flex; Align-items: center; Justify-content: center;'>
+        <div class="row">
+            <div class="card-group wrapper ">
+                {% for product in products %}
+                <a href="{% url 'shop/product-details' product.slug %}" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+                    {% if product.is_updated %}
+                    <div class="card mb-3 me-3 border-info bg-dark popupcard">
+                    {% else %}
+                    <div class="card mb-3 me-3 border-info popupcard">
+                    {% endif %}
+                        <img src="{{product.image}}" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                        <div class="card-body">
+                        <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">
+                            {% if product.name.name  %} {{ product.name.name }} {% endif %}
+                        </p>
+                        <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;">
+                            {% if product.name.model  %} {{ product.name.model }} {% endif %}
+                            {% if product.ram.type %} {{ product.ram.type }} RAM {% endif %}
+                            {% if product.storage.type %} {{ product.storage.type }} SSD{% endif %}
+                            {% if product.processor.type %} {{ product.processor.type }} {% endif %}
+                            {% if product.system.type  %} {{ product.system.type }} {% endif %}
+                            {% if product.screen.type  %} {{ product.screen.type }} {% endif %}
+                        </p>
+                            <div class="list-group list-group-horizontal">
+                            {% if product.rate|floatformat %}
+                                <li class="list-group-item p-0 pt-2 itemsing1" style="font-size:1rem;border:none;">
+                                <ul class="list-group list-group-horizontal" style="list-style-type: none;font-weight: 400;color:#FFC000">
+                                    {% with ''|center:product.rate as range %}
+                                    {% for _ in range %}
+                                    <li>★</li>
+                                    {% endfor %}
+                                    {% endwith %}
+                                </ul>
+                                {% endif %}
+                            <li class="list-group-item ms-auto itemsing2" style="font-weight: 700;font-size:1rem;border:none;color:#f27a1a">{{ product.price|floatformat }} TL</li>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <h1 class="alert alert-warning text-center">
+        Aradığınız Kelime: {{ searched }} Bulunamadı.
+    </h1>
+    {% endif %}
+{% else %}
+    <h1 class="alert alert-warning text-center">
+        Aradığınız Ürün Bulunamadı.
+    </h1>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+{% include 'scrap/partials/_navbar1.html' %}
+{% if searched %}
+    {% if products|length == 0 and sitenames|length == 0 %}
+    <h1 class="alert alert-warning text-center m-0">
+        Aradığınız kelime {{ searched }} bulunamadı.
+    </h1>
+    {% else %}
+    <h1 class="alert alert-success text-center ">
+        Aradığınız Kelime: {{ searched }} bulundu.
+    </h1>
+    {% endif %}
+{% else %}
+    <h1 class="alert alert-danger text-center m-0">
+        Aradığınız Kelime: {{ searched }} bulunamadı.
+    </h1>
+{% endif %}
+<div class="container mt-3" style='Display: flex; Align-items: center; Justify-content: center;'>
+    <div class="row">
+        <div class="card-group wrapper ">
+        {% if searched %}
+            {% if products|length > 0 %}
+                        {% for product in products %}
+                        <a href="{% url 'scrap/product-details' product.slug %}" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+                            {% if product.is_updated %}
+                            <div class="card mb-3 me-3 border-info bg-dark popupcard">
+                            {% else %}
+                            <div class="card mb-3 me-3 border-info popupcard">
+                            {% endif %}
+                                <img src="{{product.image}}" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                                <div class="card-body">
+                                <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">
+                                    {% if product.name.name  %} {{ product.name.name }} {% endif %}
+                                </p>
+                                <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;">
+                                    {% if product.name.model  %} {{ product.name.model }} {% endif %}
+                                    {% if product.ram.type %} {{ product.ram.type }} RAM {% endif %}
+                                    {% if product.storage.type %} {{ product.storage.type }} SSD{% endif %}
+                                    {% if product.processor.type %} {{ product.processor.type }} {% endif %}
+                                    {% if product.system.type  %} {{ product.system.type }} {% endif %}
+                                    {% if product.screen.type  %} {{ product.screen.type }} {% endif %}
+                                </p>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+            {% endif %}
+            {% if sitenames|length > 0 %}
+                    {% for site in sitenames %}
+                        <a href="{% url 'scrap/product-details' site.whichproduct.slug %}" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+                            {% if site.whichproduct.is_updated %}
+                            <div class="card mb-3 me-3 border-info bg-dark popupcard">
+                            {% else %}
+                            <div class="card mb-3 me-3 border-info popupcard">
+                            {% endif %}
+                                <img src="{{site.whichproduct.image}}" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                                <div class="card-body">
+                                <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">
+                                    {% if site.whichproduct.name.name  %} {{ site.whichproduct.name.name }} {% endif %}
+                                </p>
+                                <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;">
+                                    {% if site.whichproduct.name.model  %} {{ site.whichproduct.name.model }} {% endif %}
+                                    {% if site.whichproduct.ram.type %} {{ site.whichproduct.ram.type }} RAM {% endif %}
+                                    {% if site.whichproduct.storage.type %} {{ site.whichproduct.storage.type }} SSD{% endif %}
+                                    {% if site.whichproduct.processor.type %} {{ site.whichproduct.processor.type }} {% endif %}
+                                    {% if site.whichproduct.system.type  %} {{ site.whichproduct.system.type }} {% endif %}
+                                    {% if site.whichproduct.screen.type  %} {{ site.whichproduct.screen.type }} {% endif %}
+                                </p>
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

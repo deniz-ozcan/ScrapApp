@@ -1,0 +1,60 @@
+{% extends "base.html" %} 
+{% load static %}
+{% load scrap_extras %}
+{% block title %} ANASAYFA | Scrap App{% endblock%} 
+{% block content %}
+{% include 'scrap/partials/_navbar1.html' %}
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-3" style="max-width:300px;">
+      {% include 'partials/_categories.html' %}
+    </div>
+    <div class="col-9" style="min-width:1050px;">
+      <div class="card-group wrapper ms-1 ">
+        {% for listing in products %}
+          <a href="{% url 'scrap/product-details' listing.slug %}" class="col-sm-3 mb-3" style="text-decoration:none;color:black;">
+              <div class="card mb-3 me-3 border-info bg-dark popupcard">
+                  <img src="{{listing.image}}" alt="" class="card-img-top img-fluid img-thumbnail"/>
+                <div class="card-body">
+                  <p class="card-title fs-6 info" style="color:#ff0000;display:inline;">
+                    {{ listing.name.name }}
+                  </p>
+                  <p class="card-title fs-6 info" style="color:#fff;display:inline;font-size:1rem;"> {{ listing.name.model }} {{ listing.ram.type }} RAM {{ listing.storage.type }} SSD {{ listing.processor.type }} {{ listing.system.type }} {{ listing.screen.type }}</p>
+                </div>
+              </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <nav aria-label="Page navigation" class="mt-6">
+    <ul class="pagination justify-content-center">
+      {% if products.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url 1 'page' request.GET.urlencode %}">&laquo İlk sayfa</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url products.previous_page_number 'page' request.GET.urlencode %}">Önceki</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url pnum 'page' request.GET.urlencode %}">{{ pnum }}</a>
+      </li>
+      {% endif %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="{% my_url nums 'page' request.GET.urlencode %}">{{ nums }}</a>
+      </li>
+      {% if products.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url nnum 'page' request.GET.urlencode %}">{{ nnum }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url products.next_page_number 'page' request.GET.urlencode %}">Sonraki</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{% my_url products.paginator.num_pages 'page' request.GET.urlencode %}">Son sayfa &raquo</a> 
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endblock %}
