@@ -47,7 +47,7 @@ There are 2 websites in one website by merged built using the Python->Django lib
   <h2 id="overview">:cloud: Overview</h2>
   
   <p align="justify">
-    The project idea based on <a href="akakce.com">Akakce</a> and <a href="trendyol.com">Trendyol</a>. You can filter the products by their features like Ram, Graphic card, Model, Brand etc.
+    The project idea based on <a href="https://www.akakce.com">Akakce</a> and <a href="https://www.trendyol.com">Trendyol</a>. You can filter the products by their features like Ram, Graphic card, Model, Brand etc.
   </p>
 
   ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
