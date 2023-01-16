@@ -1,0 +1,4 @@
+django
+BeautifulSoup
+requests
+sqlite3 
