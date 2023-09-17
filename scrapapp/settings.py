@@ -13,7 +13,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'django_filters',
-    'crispy_forms'
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -38,7 +39,8 @@ CRISPY_CLASS_CONVERTERS = {
     
 }
 ROOT_URLCONF = "scrapapp.urls"
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
